@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  namenode:
+    image: hanbd/hadoop-namenode
+    hostname: namenode
+    container_name: namenode
+    networks: 
+      - hadoop
+    # ports:
+    #   - "50070:50070"
+    volumes:
+      - namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+
+  datanode:
+    image: hanbd/hadoop-datanode
+    hostname: datanode
+    container_name: datanode
+    networks: 
+      - hadoop
+    # ports:
+    #   - "50075:50075"
+    volumes:
+      - datanode:/hadoop/dfs/data
+    # environment:
+      # - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+      # SERVICE_PRECONDITION: "namenode:50070"
+    env_file:
+      - ./hadoop.env
+  
+volumes:
+  namenode:
+    external:
+        name: hadoop-namenode  
+  datanode:
+    external:
+        name: hadoop-datanode
+
+networks:
+  hadoop:
+    external:
+        name: hadoop
