@@ -24,6 +24,8 @@ services:
       - datanode:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
+    depends_on: 
+      - namenode
 
   resourcemanager:
     image: hanbd/hadoop-resourcemanager
@@ -33,6 +35,9 @@ services:
       - hadoop
     env_file:
       - ./hadoop.env
+    depends_on: 
+      - namenode
+      - datanode
 
   nodemanager1:
     image: hanbd/hadoop-nodemanager
@@ -42,6 +47,10 @@ services:
       - hadoop
     env_file:
       - ./hadoop.env
+    depends_on: 
+      - namenode
+      - datanode
+      - resourcemanager
   
   historyserver:
     image: hanbd/hadoop-historyserver
@@ -53,7 +62,12 @@ services:
       - historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
-  
+    depends_on: 
+      - namenode
+      - datanode
+      - resourcemanager
+
+      
 volumes:
   namenode:
     external:
