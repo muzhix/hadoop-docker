@@ -2,7 +2,7 @@ FROM centos:7
 
 LABEL maintainer="hanbd <hanbd@foxmail.com>" 
 
-RUN buildDeps='java-1.8.0-openjdk java-1.8.0-openjdk-devel perl perl-devel which' \
+RUN buildDeps='java-1.8.0-openjdk java-1.8.0-openjdk-devel perl perl-devel which nmap-ncat' \
 	&& yum update -y \
 	&& yum install -y $buildDeps \
 	&& yum -y clean all
