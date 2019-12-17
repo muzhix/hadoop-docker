@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in hadoop namenode datanode; do
+for i in hadoop namenode datanode resourcemanager nodemanager historyserver; do
     echo "========================="
     echo Building $i
     echo "========================="

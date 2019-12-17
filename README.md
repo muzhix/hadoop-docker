@@ -14,6 +14,14 @@
 docker-compose up
 ```
 
+## Access
+
+* Namenode: http://<Namenode_IP_address>:9870/dfshealth.html#tab-overview
+* History server: http://<History_server_IP_address>:8188/applicationhistory
+* Datanode: http://<Datanode_IP_address>:9864/
+* Nodemanager: http://<Nodemanager_IP_address>:8042/node
+* Resource manager: http://<Resource manager_IP_address>:8088/
+
 ## build images
 
 ```shell

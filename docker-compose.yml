@@ -7,8 +7,6 @@ services:
     container_name: namenode
     networks: 
       - hadoop
-    ports:
-      - "50070:50070"
     volumes:
       - namenode:/hadoop/dfs/name
     environment:
@@ -22,23 +20,50 @@ services:
     container_name: datanode
     networks: 
       - hadoop
-    ports:
-      - "50075:50075"
     volumes:
       - datanode:/hadoop/dfs/data
-    # environment:
-      # - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
-      # SERVICE_PRECONDITION: "namenode:50070"
+    env_file:
+      - ./hadoop.env
+
+  resourcemanager:
+    image: hanbd/hadoop-resourcemanager
+    hostname: resourcemanager
+    container_name: resourcemanager
+    networks: 
+      - hadoop
+    env_file:
+      - ./hadoop.env
+
+  nodemanager1:
+    image: hanbd/hadoop-nodemanager
+    hostname: nodemanager1
+    container_name: nodemanager1
+    networks: 
+      - hadoop
+    env_file:
+      - ./hadoop.env
+  
+  historyserver:
+    image: hanbd/hadoop-historyserver
+    hostname: historyserver
+    container_name: historyserver
+    networks: 
+      - hadoop
+    volumes:
+      - historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
   
 volumes:
   namenode:
     external:
-        name: hadoop-namenode  
+      name: hadoop-namenode  
   datanode:
     external:
-        name: hadoop-datanode
+      name: hadoop-datanode
+  historyserver:
+    external: 
+      name: hadoop-historyserver
 
 networks:
   hadoop:
