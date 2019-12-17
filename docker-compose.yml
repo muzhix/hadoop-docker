@@ -7,8 +7,8 @@ services:
     container_name: namenode
     networks: 
       - hadoop
-    # ports:
-    #   - "50070:50070"
+    ports:
+      - "50070:50070"
     volumes:
       - namenode:/hadoop/dfs/name
     environment:
@@ -22,8 +22,8 @@ services:
     container_name: datanode
     networks: 
       - hadoop
-    # ports:
-    #   - "50075:50075"
+    ports:
+      - "50075:50075"
     volumes:
       - datanode:/hadoop/dfs/data
     # environment:
